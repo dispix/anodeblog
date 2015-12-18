@@ -1,0 +1,33 @@
+{
+  "name": "anodeblog",
+  "version": "0.1.0",
+  "description": "A simple node blog template",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dispix/anodeblog.git"
+  },
+  "keywords": [
+    "blog",
+    "node"
+  ],
+  "author": "dispix",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dispix/anodeblog/issues"
+  },
+  "homepage": "https://github.com/dispix/anodeblog#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.0",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "jade": "^1.11.0",
+    "mongoose": "^4.2.9",
+    "mysql": "^2.9.0",
+    "twig": "^0.8.2"
+  }
+}

@@ -1,0 +1,35 @@
+doctype html
+html(lang='fr')
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		meta(name='description', content='')
+		meta(name='author', content='')
+		title Blog Post - Start Bootstrap Template
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		meta(name='description', content='')
+		meta(name='author', content='')
+		title Blog Post - Start Bootstrap Template
+		// jQuery
+		script(src='js/jquery.min.js')
+		// Bootstrap Core CSS
+		link(href='css/bootstrap.min.css', rel='stylesheet')
+		// Custom CSS
+		link(href='css/style.css', rel='stylesheet')
+	body
+		include menu.jade
+		include header.jade
+		#page-content-wrapper
+			.container
+				.row
+					.col-xs-12
+						include errors.jade
+				.row
+					.col-xs-12
+						p #{page}
+	include footer.jade
+	// Bootstrap Core JavaScript
+	script(src='js/bootstrap.min.js')

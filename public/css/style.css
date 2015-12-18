@@ -1,0 +1,26 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  padding-top: 50px;
+  padding-bottom: 60px;
+}
+h2 .glyphicon {
+	font-size: 2rem;
+}
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	background-color: rgba(80, 80, 80, 1);
+}
+.container .text-muted {
+	margin: 20px 0;
+}
+.btn {
+	margin-bottom: 10px;
+}
