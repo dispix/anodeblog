@@ -10,18 +10,18 @@ nav.navbar.navbar-default.navbar-fixed-top
       ul.nav.navbar-nav.navbar-right
         // if(isset($_SESSION['id'])) {
         li
-          a(href='?page=articles') Articles
+          a(href='/article/list') Articles
         li
-          a(href='?page=create_article') Create
+          a(href='/article/new') Create
         li
-          a(href='?page=logout') Logout
+          a(href='/user/logout') Logout
         // } else {
         li
-          a(href='?page=articles') Articles
+          a(href='/article/list') Articles
         li
-          a(href='?page=login') Login 
+          a(href='/user/login') Login 
         li
-          a(href='?page=register') Register
+          a(href='/user/register') Register
         // }
     // /.nav-collapse
   // /.container
