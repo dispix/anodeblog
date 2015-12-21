@@ -27,8 +27,6 @@
     "express": "^4.13.3",
     "express-session": "^1.12.1",
     "jade": "^1.11.0",
-    "mongoose": "^4.2.9",
-    "mysql": "^2.9.0",
-    "twig": "^0.8.2"
+    "mysql": "^2.9.0"
   }
 }
