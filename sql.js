@@ -1,8 +1,9 @@
 var sql = {
-	host : 'localhost',
-	user : 'root',
-	password : 'troiswa',
-	database : 'test'
+	host : 		'localhost',
+	port: 		'8889',
+	user : 		'node',
+	password : 	'EKrqqs38mK7wM7jj',
+	database : 	'anodeblog'
 }
 
 module.exports = sql

@@ -1,15 +1,17 @@
-h2 Register
-form(action="register", method="POST")
-  fieldset
-    .row
-      .form-group.col-xs-12.col-md-6
-        label(for="register_name") Login
-        input#register_name.form-control(type="text", name="register_name", placeholder="2 to 30 characters", required)
-      .form-group.col-xs-12.col-md-6
-        label(for="register_password") Password
-        input#register_password.form-control(type="password", name="register_password", placeholder="6 to 30 characters")
-      .form-group.col-xs-12.col-md-6
-        label(for="register_password_repeat") Repeat password
-        input#register_password_repeat.form-control(type="password", name="register_password_repeat", placeholder="Repeat password")
-  .submit-register.text-right
-    button.btn.btn-primary(type="submit") Register
+extends ../skel.jade
+block content
+	h2 Register
+	form(action="", method="POST")
+		fieldset
+			.row
+				.form-group.col-xs-12.col-md-6
+					label(for="register_name") Login
+					input#register_name.form-control(type="text", name="register_name", placeholder="2 to 30 characters", required)
+				.form-group.col-xs-12.col-md-6
+					label(for="register_password") Password
+					input#register_password.form-control(type="password", name="register_password", placeholder="6 to 30 characters")
+				.form-group.col-xs-12.col-md-6
+					label(for="register_password_repeat") Repeat password
+					input#register_password_repeat.form-control(type="password", name="register_password_repeat", placeholder="Repeat password")
+			.submit-register.text-right
+				button.btn.btn-primary(type="submit") Register

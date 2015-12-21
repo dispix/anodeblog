@@ -3,6 +3,7 @@
 var express 		= require('express')
 var session 		= require('express-session')
 var cookieParser 	= require('cookie-parser')
+var bodyParser 		= require('body-parser')
 var mysql 			= require('mysql')
 var app 			= express()
 var jade 			= require('jade')
@@ -10,18 +11,24 @@ var jade 			= require('jade')
 
 // Mysql connection
 var sql = require('./sql.js')
-var db 	= mysql.createConnection({
-				host : sql.host,
-				user : sql.user,
-				password : sql.password,
-				database : sql.database
+var db 	= mysql.createConnection(
+{
+	host : 		sql.host,
+	port: 		sql.port,
+	user : 		sql.user,
+	password : 	sql.password,
+	database : 	sql.database
 })
 
-db.connect(function(err) {
-	if (err) {
+db.connect(function(err)
+{
+	if (err)
+	{
 		console.error('error connecting: ' + err.stack)
 		return
 	}
+
+	console.log('connected as id ' + db.threadId)
 })
 
 
@@ -29,6 +36,8 @@ db.connect(function(err) {
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(session({secret:'bla123bla'}))
 app.use(express.static('public'))
@@ -44,7 +53,7 @@ var pages 	=
 
 
 // Routes
-app.get('/:page/:action', function(req, res)
+app.use('/:page/:action', function(req, res)
 {
 	var page 	= req.params.page
 	if (pages[page] !== undefined)
@@ -53,7 +62,18 @@ app.get('/:page/:action', function(req, res)
 	}
 })
 
+// app.post('/user/register', function(req, res)
+// {
+// 	console.log(req.body)
+// 	res.json(req.body)
+// 	res.end()
+// })
+
 if (app.listen(8080))
 {
 	console.log('Server running on port 8080')
 }
+
+db.query('SELECT * FROM user', function(err, results, fields){
+	console.log(results);
+})
