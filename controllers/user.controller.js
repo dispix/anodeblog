@@ -47,7 +47,7 @@ UserCtrl.prototype =
 
 	register : function(req, res)
 	{
-		var UserCtrl = this
+		var self = this
 
 		if (req.method == 'GET')
 		{
@@ -57,14 +57,16 @@ UserCtrl.prototype =
 		if (req.method == 'POST')
 		{
 			if (req.body.register_name &&
+				req.body.register_email &&
 				req.body.register_password &&
-				req.body.register_password_repeat)
+				req.body.register_password2)
 			{
-				UserCtrl.manager.create
+				self.manager.create
 				(
 					req.body.register_name,
+					req.body.register_email,
 					req.body.register_password,
-					req.body.register_password_repeat,
+					req.body.register_password2,
 					function(err, response)
 					{
 						if (err)

@@ -8,10 +8,13 @@ block content
 					label(for="register_name") Login
 					input#register_name.form-control(type="text", name="register_name", placeholder="2 to 30 characters", required)
 				.form-group.col-xs-12.col-md-6
+					label(for="register_email") Email
+					input#register_email.form-control(type="text", name="register_email", placeholder="2 to 30 characters", required)
+				.form-group.col-xs-12.col-md-6
 					label(for="register_password") Password
 					input#register_password.form-control(type="password", name="register_password", placeholder="6 to 30 characters")
 				.form-group.col-xs-12.col-md-6
-					label(for="register_password_repeat") Repeat password
-					input#register_password_repeat.form-control(type="password", name="register_password_repeat", placeholder="Repeat password")
+					label(for="register_password2") Repeat password
+					input#register_password2.form-control(type="password", name="register_password2", placeholder="Repeat password")
 			.submit-register.text-right
 				button.btn.btn-primary(type="submit") Register

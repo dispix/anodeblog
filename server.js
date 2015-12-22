@@ -7,8 +7,9 @@ var bodyParser 		= require('body-parser')
 var mysql 			= require('mysql')
 var app 			= express()
 var jade 			= require('jade')
+global.bcrypt 		= require('bcrypt')
 
-
+console.log(bcrypt)
 // Mysql connection
 var sql = require('./sql.js')
 var db 	= mysql.createConnection(
