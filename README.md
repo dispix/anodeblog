@@ -11,8 +11,10 @@ A node blog template
 - User controller
 - User registration
 - User login
+- User profile page
 
 ## Todo
+- User 'my profile' page
 - Session and cookie management
 - Logout button
 - User update

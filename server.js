@@ -9,6 +9,7 @@ var app 			= express()
 var jade 			= require('jade')
 global.bcrypt 		= require('bcrypt')
 
+
 // Mysql connection
 var sql = require('./sql.js')
 var db 	= mysql.createConnection(
@@ -19,7 +20,6 @@ var db 	= mysql.createConnection(
 	password : 	sql.password,
 	database : 	sql.database
 })
-
 db.connect(function(err)
 {
 	if (err)
@@ -60,20 +60,33 @@ app.use('/:page/:action', function(req, res)
 	{
 		pages[page].exec(req, res)
 	}
+	else
+	{
+		res.status(404).render('content/404')
+	}
+})
+app.use('/:page', function(req, res)
+{
+	var page 	= req.params.page
+	if (pages[page] !== undefined)
+	{
+		pages[page].exec(req, res)
+	}
+	else
+	{
+		res.status(404).render('content/404')
+		res.end()
+	}
 })
 
-// app.post('/user/register', function(req, res)
+// app.use('/', function(req, res)
 // {
-// 	console.log(req.body)
-// 	res.json(req.body)
-// 	res.end()
+// 	res.render('content/home')
 // })
 
+
+// Server starts
 if (app.listen(8080))
 {
 	console.log('Server running on port 8080')
 }
-
-db.query('SELECT * FROM user', function(err, results, fields){
-	console.log(results);
-})

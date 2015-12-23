@@ -13,14 +13,22 @@ User.prototype =
 	{
 
 	},
+	get name()
+	{
+		return this._name
+	},
+	get hash()
+	{
+		return this._hash
+	},
+	get email()
+	{
+		return this._email
+	},
 	set name(name)
 	{
 		this._name = name
 		return true
-	},
-	get name()
-	{
-		return this._name
 	},
 	setHash : function(password, password2, callback)
 	{
@@ -41,18 +49,10 @@ User.prototype =
 			callback('Passwords don\'t match')
 		}
 	},
-	get hash()
-	{
-		return this._hash
-	},
 	set email(email)
 	{
 		this._email = email
 		return true
-	},
-	get email()
-	{
-		return this._email
 	},
 	checkPassword : function(password, callback)
 	{

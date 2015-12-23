@@ -8,29 +8,33 @@ UserCtrl.prototype =
 {
 	exec : function(req, res)
 	{
-		if (req.params.action == 'login')
+		var action = req.params.action
+
+		if (UserCtrl.prototype.hasOwnProperty(action))
 		{
-			this.login(req, res)
-		}
-		else if (req.params.action == 'logout')
-		{
-			this.logout(req, res)
-		}
-		else if (req.params.action == 'register')
-		{
-			this.register(req, res)
+			this[action](req, res)
 		}
 		else
 		{
-			if (!isNaN(req.params.action))
+			this.manager.readByName(action, function(err, results, fields)
 			{
+				if (err)
+				{
+					res.json(err)
+					res.end
+				}
 
-			}
-			else
-			{
-				res.render('404.jade')
-				res.status(404).end()
-			}
+				if (results.length === 0)
+				{
+					res.status(404).render('content/404')
+					res.end()
+				}
+				else
+				{
+					res.render('content/user', {user: results[0]})
+					res.end()
+				}
+			})
 		}
 	},
 
