@@ -11,14 +11,14 @@ UserMng.prototype =
 		var self = this
 		var user = new(require('../models/user.class.js'))(self.db)
 
-		self.readByName(name, function(err, results, fields)
+		self.readByEmail(email, function(err, results, fields)
 		{
 			if (err)
 				return callback(err)
 
 			if (results.length > 0)
 			{
-				return callback('User already exists with given name')
+				return callback('This email is already registered')
 			}
 			else
 			{
@@ -44,7 +44,7 @@ UserMng.prototype =
 							if (err)
 								return callback(err)
 
-							return readById(result.insertId, callback)
+							return self.readById(result.insertId, callback)
 						}
 					)
 				})
@@ -102,6 +102,31 @@ UserMng.prototype =
 		self.db.query('SELECT * FROM user WHERE name = ?', [name], function(err, results, fields)
 		{
 			return callback(err, results, fields)
+		})
+	},
+	readByEmail : function(email, callback)
+	{
+		var self = this
+		self.db.query('SELECT * FROM user WHERE email = ?', [email], function(err, results, fields)
+		{
+			return callback(err, results, fields)
+		})
+	},
+	update : function(user, callback)
+	{
+		this.db.query('UPDATE user SET name = ?, email = ?, hash = ? WHERE id = ?',
+			[user.name, user.email, user.hash, user.id],
+			function(err, result)
+			{
+				return callback(err, result)
+			}
+		)
+	},
+	delete : function(user, callback)
+	{
+		this.db.query('DELETE FROM user WHERE id = ?', [user.id], function(err, result)
+		{
+			return callback(err, result)
 		})
 	}
 }

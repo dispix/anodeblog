@@ -19,9 +19,10 @@ html(lang='fr')
 		include header.jade
 		#page-content-wrapper
 			.container
-				.row
-					.col-xs-12
-						include errors.jade
+				if (error)
+					.row
+						.col-xs-12
+							include errors.jade
 				.row
 					.col-xs-12
 						block content

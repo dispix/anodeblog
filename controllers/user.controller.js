@@ -29,19 +29,63 @@ UserCtrl.prototype =
 			else
 			{
 				res.render('404.jade')
+				res.status(404).end()
 			}
 		}
 	},
 
 	login : function(req, res)
 	{
+		var self = this
+
 		if (req.method == 'GET')
 		{
-			res.render('login.jade')
+			res.render('content/login')
 		}
 		if  (req.method == 'POST')
 		{
-			console.log(req.body)
+			if (req.body.login_email && req.body.login_password)
+			{
+				self.manager.readByEmail(req.body.login_email, function(err, results, fields)
+				{
+					if (err)
+					{
+						res.json(err)
+						res.end()
+					}
+
+					if (results.length === 0)
+					{
+						res.render('content/login', {error: 'Wrong email'})
+						res.end()
+					}
+					else
+					{
+						bcrypt.compare(req.body.login_password, results[0].hash, function(err, result)
+						{
+							if (err)
+							{
+								res.json(err)
+								res.end()
+							}
+
+							if (result)
+							{
+								res.end('You are logged in')
+							}
+							else
+							{
+								res.render('content/login', {error: 'Wrong password'})
+								res.end()
+							}
+						})
+					}
+				})
+			}
+			else
+			{
+				res.end('Not ok')
+			}
 		}
 	},
 
@@ -49,11 +93,15 @@ UserCtrl.prototype =
 	{
 		var self = this
 
+
+		// Serve register page
 		if (req.method == 'GET')
 		{
-			res.render('content/register.jade')
+			res.render('content/register')
 		}
 
+
+		// Register new user
 		if (req.method == 'POST')
 		{
 			if (req.body.register_name &&
@@ -71,20 +119,20 @@ UserCtrl.prototype =
 					{
 						if (err)
 						{
-							res.json(err)
-							res.end
+							res.render('content/register', {error: err})
+							res.end()
 						}
 						else
 						{
 							res.json(response)
-							res.end
+							res.end()
 						}
 					}
 				)
 			}
 			else
 			{
-				res.end('Pas ok')
+				res.end('Not ok')
 			}
 		}
 	},

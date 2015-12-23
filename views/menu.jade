@@ -1,27 +1,23 @@
 nav.navbar.navbar-default.navbar-fixed-top
-  .container
-    .navbar-header
-      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-    #navbar.navbar-collapse.collapse
-      ul.nav.navbar-nav.navbar-right
-        // if(isset($_SESSION['id'])) {
-        li
-          a(href='/article/list') Articles
-        li
-          a(href='/article/new') Create
-        li
-          a(href='/user/logout') Logout
-        // } else {
-        li
-          a(href='/article/list') Articles
-        li
-          a(href='/user/login') Login 
-        li
-          a(href='/user/register') Register
-        // }
-    // /.nav-collapse
-  // /.container
+	.container
+		.navbar-header
+			button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+		#navbar.navbar-collapse.collapse
+			ul.nav.navbar-nav.navbar-right
+				li
+					a(href='/article/list') Articles
+				// if(isset($_SESSION['id'])) {
+				li
+					a(href='/article/new') Create
+				li
+					a(href='/user/logout') Logout
+				// } else {
+				li
+					a(href='/user/login') Login 
+				li
+					a(href='/user/register') Register
+				// }
