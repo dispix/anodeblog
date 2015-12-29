@@ -9,15 +9,16 @@ nav.navbar.navbar-default.navbar-fixed-top
 		#navbar.navbar-collapse.collapse
 			ul.nav.navbar-nav.navbar-right
 				li
+					a(href='/') Home
+				li
 					a(href='/article/list') Articles
-				// if(isset($_SESSION['id'])) {
-				li
-					a(href='/article/new') Create
-				li
-					a(href='/user/logout') Logout
-				// } else {
-				li
-					a(href='/user/login') Login 
-				li
-					a(href='/user/register') Register
-				// }
+				if currentUser
+					li
+						a(href='/article/new') Create
+					li
+						a(href='/user/logout') Logout
+				else
+					li
+						a(href='/user/login') Login 
+					li
+						a(href='/user/register') Register

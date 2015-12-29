@@ -1,31 +1,31 @@
 function Article(db)
 {
 	this.db = db
+	this.manager 	= new(require('../models/article.manager.js'))(db)
 }
 
 Article.prototype =
 {
 	exec : function(req, res)
 	{
-		if (req.params.action == 'list')
+		var action = req.params.action
+		var self = this
+
+		if (this[action+'Action'] !== undefined)
 		{
-			this.list(req, res)
+			this[action+'Action'](req, res)
 		}
 		else
 		{
-			if (!isNaN(req.params.action))
-			{
-
-			}
-			else
-			{
-
-			}
 		}
 	},
-	list : function(req, res)
+	listAction : function(req, res)
 	{
 		res.render('skel.jade')
+	},
+	createAction : function(req, res)
+	{
+
 	}
 }
 

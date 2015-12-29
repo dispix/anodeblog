@@ -9,10 +9,11 @@ UserCtrl.prototype =
 	exec : function(req, res)
 	{
 		var action = req.params.action
+		var self = this
 
-		if (UserCtrl.prototype.hasOwnProperty(action))
+		if (this[action+'Action'] !== undefined)
 		{
-			this[action](req, res)
+			this[action+'Action'](req, res)
 		}
 		else
 		{
@@ -26,26 +27,65 @@ UserCtrl.prototype =
 
 				if (results.length === 0)
 				{
-					res.status(404).render('content/404')
-					res.end()
+					if (req.session.userId !== undefined)
+					{
+						self.manager.readById(req.session.userId, function(err, curUser, fields)
+						{
+							res.status(404).render('content/404', {currentUser: curUser[0]})
+							res.end()
+						})
+					}
+					else
+					{
+						res.status(404).render('content/404')
+						res.end()
+					}
 				}
 				else
 				{
-					res.render('content/user', {user: results[0]})
-					res.end()
+					if (req.session.userId !== undefined)
+					{
+						self.manager.readById(req.session.userId, function(err, curUser, fields)
+						{
+							res.status(404).render('content/user',
+								{
+									user: results[0],
+									currentUser: curUser[0]
+								}
+							)
+							res.end()
+						})
+					}
+					else
+					{
+						res.render('content/user', {user: results[0]})
+						res.end()
+					}
 				}
 			})
 		}
 	},
 
-	login : function(req, res)
+	loginAction : function(req, res)
 	{
 		var self = this
 
+
+		// Logout if logged in
+		if (req.session.userId !== undefined)
+		{
+			delete req.session.userId
+		}
+
+
+		// Serve login page
 		if (req.method == 'GET')
 		{
 			res.render('content/login')
 		}
+
+
+		// Login user
 		if  (req.method == 'POST')
 		{
 			if (req.body.login_email && req.body.login_password)
@@ -54,8 +94,8 @@ UserCtrl.prototype =
 				{
 					if (err)
 					{
-						res.json(err)
-						res.end()
+						res.status(500).json(err)
+						return res.end()
 					}
 
 					if (results.length === 0)
@@ -69,13 +109,18 @@ UserCtrl.prototype =
 						{
 							if (err)
 							{
-								res.json(err)
-								res.end()
+								res.status(500).json(err)
+								return res.end()
 							}
 
 							if (result)
 							{
-								res.end('You are logged in')
+								req.session.userId = results[0].id
+
+								self.manager.readById(results[0].id, function(err, results, fields)
+								{
+									res.redirect(200, '/', {currentUser: results[0]})
+								})
 							}
 							else
 							{
@@ -88,14 +133,22 @@ UserCtrl.prototype =
 			}
 			else
 			{
-				res.end('Not ok')
+				res.render('content/login', {error: 'Please fill all fields'})
+				res.end()
 			}
 		}
 	},
 
-	register : function(req, res)
+	registerAction : function(req, res)
 	{
 		var self = this
+
+
+		// Logout if logged in
+		if (req.session.userId !== undefined)
+		{
+			delete req.session.userId
+		}
 
 
 		// Serve register page
@@ -141,9 +194,17 @@ UserCtrl.prototype =
 		}
 	},
 
-	logout : function(req, res)
+	logoutAction : function(req, res)
 	{
-
+		if (req.session.userId !== undefined)
+		{
+			delete req.session.userId
+			res.redirect(302, '/')
+		}
+		else
+		{
+			res.redirect(302, '/')
+		}
 	}
 }
 

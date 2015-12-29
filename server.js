@@ -9,16 +9,16 @@ var app 			= express()
 var jade 			= require('jade')
 global.bcrypt 		= require('bcrypt')
 
+var infos = require('./infos.js')
 
 // Mysql connection
-var sql = require('./sql.js')
 var db 	= mysql.createConnection(
 {
-	host : 		sql.host,
-	port: 		sql.port,
-	user : 		sql.user,
-	password : 	sql.password,
-	database : 	sql.database
+	host : 		infos.sql.host,
+	port: 		infos.sql.port,
+	user : 		infos.sql.user,
+	password : 	infos.sql.password,
+	database : 	infos.sql.database
 })
 db.connect(function(err)
 {
@@ -39,7 +39,7 @@ app.set('view engine', 'jade')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(session({secret:'bla123bla'}))
+app.use(session({secret: infos.secret}))
 app.use(express.static('public'))
 
 
@@ -79,10 +79,26 @@ app.use('/:page', function(req, res)
 	}
 })
 
-// app.use('/', function(req, res)
-// {
-// 	res.render('content/home')
-// })
+app.use('/', function(req, res)
+{
+	if (req.session.userId !== undefined)
+	{
+		pages.user.manager.readById(req.session.userId, function(err, results, fields)
+		{
+			if (err)
+				res.status(500).json(err)
+				return res.end()
+
+			res.render('skel', {currentUser: results[0]})
+			res.end()
+		})
+	}
+	else
+	{
+		res.render('skel')
+		res.end()
+	}
+})
 
 
 // Server starts

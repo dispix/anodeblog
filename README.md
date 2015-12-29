@@ -14,8 +14,8 @@ A node blog template
 - User profile page
 
 ## Todo
-- User 'my profile' page
 - Session and cookie management
+- User 'my profile' page
 - Logout button
 - User update
 - Article class
